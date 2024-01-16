@@ -16,6 +16,9 @@ Like other VPN this app just bypass network traffic like tcp,udp including dns. 
 * TCP plain & SSL (HTTP/WebSocket/Direct/Etc, custom with your own :p)
 * UDP (QUIC/DNS/Etc) ? #comming_soon, we not include it yet. because very poor in my test. but we keep working on it.
 
+# Android Client
+[![NoobzVpn](badge/playstore_badge.svg)](https://play.google.com/store/apps/details?id=com.noobz.id.noobzvpn)
+
 # Guide
 
 ### Minimum Requiment :
