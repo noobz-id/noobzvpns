@@ -16,11 +16,24 @@ SYSTEMD=/etc/systemd/system
 SYSTEMCTL=$(which systemctl)
 RESOURCES=`$(which dirname) "$0"`
 MACHINE=`$(which uname) "-m"`
+BINARY_ARCH=""
 
 if [ `id -u` != "0" ]; then
     echo "Error at installation, please run installer as root"
     exit 1
 fi
+
+case $MACHINE in
+    "x86_64")
+        BINARY_ARCH="noobzvpns.x86_64"
+        ;;
+    *)
+        echo "Error at installation, unsuported cpu-arch $MACHINE"
+        exit 1
+        ;;
+esac
+
+echo "CPU-Arch: $MACHINE, Binary: $BINARY_ARCH"
 
 if [ ! -d $SYSTEMD ]; then
     echo "Error at installation, no systemd directory found. make sure your distro using systemd as default init"
@@ -53,7 +66,7 @@ echo "Copying binary files..."
 if [ ! -d $CONFIGS ]; then
     mkdir $CONFIGS
 fi
-cp $RESOURCES/noobzvpns $BIN/noobzvpns
+cp $RESOURCES/$BINARY_ARCH $BIN/noobzvpns
 cp $RESOURCES/cert.pem $CONFIGS/cert.pem
 cp $RESOURCES/key.pem $CONFIGS/key.pem
 cp $RESOURCES/noobzvpns.service $SYSTEMD/noobzvpns.service
