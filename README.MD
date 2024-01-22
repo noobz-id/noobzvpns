@@ -52,6 +52,51 @@ Like other VPN this app just bypass network traffic like tcp,udp including dns. 
 # ./uninstall.sh
 ```
 
+
+### Manage Service:
+
+##### Start Service
+* start service, you need to start it after installation to run noobzvpns service
+#
+```bash
+systemctl start noobzvpns.service
+```
+
+##### Restart Service
+* restart service, if you change configuration you need to restart the service
+```bash
+systemctl restart noobzvpns.service
+```
+
+##### Stop Service
+* stop service, if you want to stop it
+```bash
+systemctl stop noobzvpns.service
+```
+
+##### Auto Start
+* enable auto-start service after reboot or at boot. (enabled by default)
+```bash
+systemctl enable noobzvpns.service
+```
+* disable auto-start service (you can start it manually)
+```bash
+systemctl disable noobzvpns.service
+```
+
+##### Status
+* simple log to see noobzvpns service status and check the error if needed
+```bash
+systemctl status noobzvpns -l
+```
+
+##### Logs
+* see full logs to see error, warning, debug etc.
+```bash
+journalctl -u noobzvpns.service
+```
+
+
 ### Configuration :
 * `/etc/noobzvpns/config.json`
 
