@@ -87,7 +87,7 @@ systemctl disable noobzvpns.service
 ##### Status
 * simple log to see noobzvpns service status and check the error if needed
 ```bash
-systemctl status noobzvpns -l
+systemctl status noobzvpns.service -l
 ```
 
 ##### Logs
