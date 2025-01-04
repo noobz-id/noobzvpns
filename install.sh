@@ -6,7 +6,7 @@ echo "## -> NoobzVpn-Server by Noobz-ID Software             ##"
 echo "## -> Author : Muhammad Nurkholis                      ##"
 echo "## -> Email : cholieztzuliz@gmail.com                  ##"
 echo "## -> Github : https://github.com/noobz-id             ##"
-echo "## -> (c) 2017-2025, Noobz-ID Software                 ##"
+echo "## -> (c) 2017-2024, Noobz-ID Software                 ##"
 echo "#########################################################"
 echo ""
 
@@ -24,18 +24,13 @@ if [ `id -u` != "0" ]; then
 fi
 
 case $MACHINE in
-    "x86_64" | "amd64")
-        # Intel (x86_64), AMD (amd64), etc CPU
-        BINARY_ARCH="noobzvpns.x86-64"
-    ;;
-    "aarch64" | "arm64")
-        # ARM-64bit base CPU
-        BINARY_ARCH="noobzvpns.aarch64"
-    ;;
+    "x86_64")
+        BINARY_ARCH="noobzvpns.x86_64"
+        ;;
     *)
         echo "Error at installation, unsuported cpu-arch $MACHINE"
         exit 1
-    ;;
+        ;;
 esac
 
 echo "CPU-Arch: $MACHINE, Binary: $BINARY_ARCH"
@@ -75,14 +70,14 @@ cp $RESOURCES/$BINARY_ARCH $BIN/noobzvpns
 cp $RESOURCES/cert.pem $CONFIGS/cert.pem
 cp $RESOURCES/key.pem $CONFIGS/key.pem
 cp $RESOURCES/noobzvpns.service $SYSTEMD/noobzvpns.service
-if [ ! -f $CONFIGS/config.toml ]; then
-    cp $RESOURCES/config.toml $CONFIGS/config.toml
+if [ ! -f $CONFIGS/config.json ]; then
+    cp $RESOURCES/config.json $CONFIGS/config.json
 fi
 
 echo "Setting files permission..."
 chmod 700 $BIN/noobzvpns
 chmod 600 $CONFIGS/cert.pem
-chmod 600 $CONFIGS/config.toml
+chmod 600 $CONFIGS/config.json
 chmod 600 $CONFIGS/key.pem
 chmod 600 $SYSTEMD/noobzvpns.service
 

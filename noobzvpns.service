@@ -10,9 +10,11 @@ User=root
 Type=simple
 TimeoutStopSec=1
 LimitNOFILE=infinity
-ExecStart=/usr/bin/noobzvpns start-server
+ExecStart=/usr/bin/noobzvpns --start-service
 
 [Install]
 WantedBy=multi-user.target
+
+
 
 
