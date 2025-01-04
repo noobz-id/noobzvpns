@@ -6,7 +6,7 @@ echo "## -> NoobzVpn-Server by Noobz-ID Software             ##"
 echo "## -> Author : Muhammad Nurkholis                      ##"
 echo "## -> Email : cholieztzuliz@gmail.com                  ##"
 echo "## -> Github : https://github.com/noobz-id             ##"
-echo "## -> (c) 2017-2024, Noobz-ID Software                 ##"
+echo "## -> (c) 2017-2025, Noobz-ID Software                 ##"
 echo "#########################################################"
 echo ""
 

@@ -1,0 +1,112 @@
+# NoobzVpn-Server Configuration File
+# (c) Noobz-ID Software
+
+[tcp_plain]
+# format is array of ports, and port range is 1-65535.
+# the ports must be different number from it array also in [tcp_ssl]
+#listen_ports = [80] for disable
+listen_ports = [80]
+
+[tcp_ssl]
+# format is array of ports, and port range is 1-65535.
+# the ports must be different number from it array also in [tcp_plain]
+#listen_ports = [443] for disable
+listen_ports = [443]
+# Select TLS Version.
+# AUTO: is recommended, it will follow the client.
+# TLSv1_2: TLS version 1.2
+# TLSv1_3: TLS version 1.3
+# string sensitive case
+tls_version = "AUTO"
+# ssl key and certificate.
+# default is using self-signed certificate by noobz-id
+# format path of the (.pem) file
+# you can use your own ssl key & certificate if you want.
+key_pem = "/etc/noobzvpns/key.pem"
+cert_pem = "/etc/noobzvpns/cert.pem"
+
+[client]
+# give timeout for first tcp packet parser
+# default 30 seconds
+# format = seconds, min: 5 seconds
+tcp_initial_timeout = 30
+# resolv.conf path
+# used for get default dns in server
+# or you can create custom your own.
+# format file is like resolv.conf file
+resolv_conf = "/etc/resolv.conf"
+# server identifier.
+# used for unique packet tagging.
+# make sure your client know this identifier, if not your client NEVER be connected to this server.
+# value string range-length is 1-256 with pattern (^[a-zA-Z0-9\.\-\_]+$)
+identifier = "noobz-id.github.io"
+# server banner text message for send to client.
+# value string range-length is 0-1000.
+#banner = "You are connected to noobzvpn-server" for disable
+banner = "You are connected to noobzvpn-server"
+# fake http response
+# it will help camouflage when using CDN, Websocket server, etc..
+# this can be empty (just fake response).
+# NoobzVpn(Client&Server) will mixing-it with real protocol ( make it unbreakable :/ )
+#tcp_http_response = "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n" for disable
+tcp_http_response = "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n"
+
+[remote]
+# setup tcp remote on_connect timeout
+# default is 30 seconds
+# format = second(s)
+tcp_connect_timeout = 30
+# setup tcp remote on_idle/stream timeout
+# when no data sended/received
+# default is 900 seconds (15 minutes)
+# NOTE:
+#   - tcp connection is guaranteed success or error,
+#     so its safe to set long timeout at idle
+#   - when client & remote side has error,
+#     so connection will aborted immediately
+# format = second(s)
+tcp_idle_timeout = 900
+# setup udp remote connect & bind timeout
+# default is 30 seconds
+# format = second(s)
+udp_connect_timeout = 30
+# setup udp remote on_idle/stream timeout
+# when no data sended/received
+# default is 60 seconds (1 minute)
+# NOTE:
+#   - unlike tcp, udp is don't care at all.
+#     udp not safe to have long timeout at idle (can lead too many wasted active session)
+#   - when client & remote side has error,
+#     udp will not notify anything so we use short timeout for force-abort the session.
+# format = second(s)
+udp_idle_timeout = 60
+# setup udp_dns remote connect & on_idle/stream timeout
+# when no data sended/received
+# default is 10 seconds
+# NOTE:
+#   - remember its still udp remote connection, see NOTE above.
+#   - we use both connect & on_idle/stream with same timeout,
+#   - dns is 1 send & 1 response, so is safe to use very short-enough timeout
+# format = second(s)
+udp_dns_timeout = 10
+
+[database]
+# database timer monitor
+# for update statistic & device on disk
+# also perform monitoring the account block when user has devices limited
+# format = second(s)
+database_monitor_timer = 30
+# give the device timeout when no data has been processed
+# we should have short enough to tolerate user
+# or this server will too restricted/agressive blocking the account
+# format = second(s)
+device_timeout = 5
+
+[runtime]
+# how many thread to proccessing task(s)
+# 0 = default: runtime worker thread based of cpu core count(s)
+# 1+ : define your self how many runtime worker thread.
+# if you define your self the worker_threads please don't over than cpu core count(s),
+# because its not efficient way to do this according to tokio documentation.
+# we give you this setting for limiting the thread(s) to use the worker thread lower than cpu core count(s)
+worker_threads = 0
