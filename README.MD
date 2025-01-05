@@ -2,62 +2,49 @@
 
 ### What is NoobzVpn ?
 
-Independent tunneling protocol is now in stable stage git-master repository.
+Independent flexible tunneling protocol with secure & customized transport.
 
 ### How is work ?
-Like other VPN this app just bypass network traffic like tcp,udp including dns. with wide-custom payload and more flexibility. unlike openvpn / ssh tunnel using Concurrent Transport, we use Multiplex Transport (like shadowsock) model with more flexibility to custom Transport model. :)
-
-### Tunneling :
-* Dual-Stack IPv4/IPv6
-* All TCP, UDP, DNS
+Like others VPN apps, it just tunneling network for All IPv4/IPv6 TCP, All IPv4/IPv6 UDP (include DNS) connection with secure (encrypted) & customizable transport.
 
 ### Transport :
-* Dual-Stack IPv4/IPv6
-* TCP plain & SSL (HTTP/WebSocket/Direct/Etc, custom with your own :p)
-* UDP (QUIC/DNS/Etc) ? #comming_soon, we not include it yet. because very poor in my test. but we keep working on it.
+* **Tcp Concurrent** : Bypass all network with single secure tcp tunnel. like: ssh tunnel, openvpn, etc.
+* **Tcp Multiplex** : Bypass all network with independent secure tcp tunnel. like: shadowsocks, trojan, etc.
+
 
 # Android Client
 [![NoobzVpn](badge/playstore_badge.svg)](https://play.google.com/store/apps/details?id=com.noobz.id.noobzvpn)
 
 # Guide
 
-### Minimum Requiment :
-* Linux x86_64 with systemd init.
-* 1 Core CPU, 512MB RAM, 500MB Disk Available (my extreme test)
-* For other Linux with CPU x86(32bit), arm, arm64 server you can request and join beta test.
-* For other init system, you can contribute this project to create/add support for other init system like s6, SysV, runit, OpenRC, etc...
-
-### Installation :
+### Minimum Requirements :
+* Most all Linux Distribution with systemd is supported.
+* CPU: x86_64(amd64) / arm64(aarch64), 1 Core CPU 512MB(even: 256MB) RAM.
+ ### Installation :
 * follow this step with **root user / root access** (sudo/doas/etc)
 ##### Debian / Ubuntu / other Debian Base
 ```bash
-# apt update
-# apt install git
+apt update && apt install git
 ```
 ##### Fedora / CentOS / RHELL / other RedHat Based
 ```bash
-# yum update
-# yum install git
+yum update && yum install git
 ```
 ##### Install / Upgrade
 ```bash
-# git clone https://github.com/noobz-id/noobzvpns.git
-# cd noobzvpns/
-# ./install.sh
+git clone https://github.com/noobz-id/noobzvpns.git && noobzvpns/install.sh
 ```
 ##### Full Uninstall
 ```bash
-# git clone https://github.com/noobz-id/noobzvpns.git
-# cd noobzvpns/
-# ./uninstall.sh
+git clone https://github.com/noobz-id/noobzvpns.git && noobzvpns/uninstall.sh
 ```
 
 
 ### Manage Service:
 
 ##### Start Service
-* start service, you need to start it after installation to run noobzvpns service
-#
+* start service, you need to start it after installation to run noobzvpns service to serve the tunnel or to manage users database.
+
 ```bash
 systemctl start noobzvpns.service
 ```
@@ -98,125 +85,43 @@ journalctl -u noobzvpns.service
 
 
 ### Configuration :
-* `/etc/noobzvpns/config.json`
-
-* 
-|   key     |   range   |   type       | example     |   description             |
-|-----------|-----------|--------------|-------------|---------------------------|
-| tcp_std   | 1-65535   | number-array | [80,8080]   |server port of tcp plain protocol |
-| tcp_ssl   | 1-65535   | number-array | [443, 4433] |server port of tcp  with ssl protocol |
-| ssl_cert  | can't be empty | string-path | "/etc/noobzvpns/cert.pem"| ssl certificate, you can create self-signed certificate on your own. or using letsencrypt/certbot as alternative |
-| ssl_key   | can't be empty  | string-path | "/etc/noobzvpns/key.pem" | ssl privatekey, both ssl_cert & ssl_key you can create your own. or using free alternative like letsencrypt with certbot |
-| ssl_version | SSLv2, SSLv23, TLSv1_1, TLSv1_2, TLSv1_3, AUTO | string-unsensitive-case | AUTO | select spesific SSL/TLS version or set to AUTO for automatic selection (recommended, be flexible to client) |
-| conn_timeout  |   5-60 | number-by-seconds   | 60    | give client connection timeout when no data arrived/sended |
-| dns_resolver  | empty or resolv.conf path    | string-path   | /etc/resolv.conf  | dns resolver file, on many distribution like debian/ubuntu/base using /etc/resolv.conf to save dns address (nameserver), you can create and set new one (don't change /etc/resolv.conf) just create file like /etc/resolv.conf with "**nameserver dns1**", "**nameserver dns2**", etc. |
-| http_ok   | [cr],[lf][crlf],[lfcr]    | smart-string-replacer | "HTTP/1.1 101 Switching Protocols[crlf]Upgrade: websocket[crlf]Connection: Upgrade[crlf][crlf]" | HTTP response for send to client if client detected using HTTP/s transport  |
+To changed configuration can be done by using text editor like (vim, nano, etc). also we add documentation each settings in there.
+```
+/etc/noobzvpns/config.toml
+```
 
 ### SSL Certificate
-noobzvpn server has default ssl certificate (self-signed certificate) generated by openssl 
+noobzvpn server has default ssl certificate (self-signed certificate) generated by openssl.
+
+**WARNING** : don't use default key.pem & cert.pem come from this installer, its dangerous for public server (security-issue: leak key.pem). we include the key & cert just for example. just use your own self-signed/signed key.pem & cert.pem (recommended as always).
+
 ##### SSL Certificate
 ```
+# fullchain.pem / certificate.pem
 /etc/noobzvpns/cert.pem
 ```
 ##### SSL Private Key
 ```
+# privkey.pem / private-key.pem
 /etc/noobzvpns/key.pem
 ```
-You can change it using your own certificate or free certificate from [Let's Encrypt](https://letsencrypt.org/) using [cerbot](https://certbot.eff.org/) or [acme.sh](https://github.com/acmesh-official/acme.sh) , see configuration details above to settings path for ssl certificate and ssl private key.
-
-
-### User Account
-Managing user(s) its simple and done by command line, adding user, set expired days, etc. you need a ***root user / root access*** to do this.
-
-##### Add User
-Register / Add new User followed by Password
+You can generate self-signed certificate and private-key yourself, make sure **openssl** installed in your vps (server).
 ```bash
-noobzvpns --add-user [username] [password]
-```
-* username maximum is 16 characters 
-* only allow characters (A-Z a-z 0-9 . - _ @)
-* password must be filled with any characters and make sure to keep strong enough
+# 1. change dir to /etc/noobzvpns/
+cd /etc/noobzvpns
+# 2. remove existing cert.pem & key.pem
+rm cert.pem key.pem
+# 3. generate cert.pem & key.pem using openssl
+openssl req -new -newkey rsa:2048 -sha256 -days 360 -nodes -x509 -keyout key.pem -out cert.pem
+# 4. follow the step from command above ^
 
-##### Block User
-Blocking registered user for disable tunneling service
-```bash
-noobzvpns --block-user [username]
+# NOTE:
+# 1. rsa:2048   ; you can change value 2048 to 4096 or more for more secure.
+# 2. -days 360  ; its give you 1 year (360days) valid certificate, you can specify your self.
 ```
-* only registered user you can do this
+Or, you can change it using your own signed certificate or free signed certificate from [Let's Encrypt](https://letsencrypt.org/) using [certbot](https://certbot.eff.org/) or [acme.sh](https://github.com/acmesh-official/acme.sh). then you can set the cert (certificate) and key (private-key) path in noobzvpns config.
 
-##### Unblock User
-Unblocking blocked registered user to allow user for tunneling service
-```bash
-noobzvpns --unblock-user [username]
-```
-* only registered user you can do this
+### Commandline
+For manage user accounts you can use the command line by execute ``noobzvpns`` in your ssh or terminal (shell) it will guide you how to do it.
 
-##### Set Expiration
-setup for expiration days per-user
-```bash
-noobzvpns --expired-user [username] [days]
-```
-* only registered user you can set this
-* **0** : unlimited days (no expiration)
-* **1-n** : limited by days
-
-##### Renew Expiration
-Re-new issued date, when user has expired you can re-new the expiration by updating issued date.
-```bash
-noobzvpns --renew-user [username]
-```
-* only registered user you can do this
-
-##### Change Password
-Change password for registered user
-```bash
-noobzvpns --password-user [username] [new_password]
-```
-* only registered user you can do this
-
-##### Rename User
-Change username for registered user
-```bash
-noobzvpns --rename-user [old_username] [new_username]
-```
-* only registered user you can do this
-
-##### Remove User
-Remove/Delete for registered user
-```bash
-noobzvpns --remove-user [username]
-```
-* only registered user you can do this
-
-##### Remove All User
-***WARNING*** clean up / remove all registered user(s), be careful this action can't be undone and no confirmation after executed.
-```bash
-noobzvpns --remove-all-user
-```
-
-##### Info User
-Get specific Info for registered user, like password, issued date, expiration days, status (block/expired/active).
-```bash
-noobzvpns --info-user [username]
-```
-* only registered user you can do this
-
-
-##### Info All Users
-Get Info All about registered users like password, issued date, expiration days, status (block/expired/active).
-```bash
-noobzvpns --info-all-user
-```
-
-##### NOTE :
-* You can combine commands above, just for example:
-```bash
-# noobzvpns --add-user [username] [password] --expired-user [username] [days]
-noobzvpns --add-user Admin-123 SeCuRePaSsWoRd456 --expired-user Admin-123 30
-```
-* for offline guide commands you just execute ```noobzvpns``` in your terminal / ssh and see the guide.
-* HIDDEN Command just for testing / debugging. maybe not for you, just ignore it :)
-```bash
-noobzvpns --start-service --debug
-```
 
