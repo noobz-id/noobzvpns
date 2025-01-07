@@ -26,6 +26,15 @@ key_pem = "/etc/noobzvpns/key.pem"
 cert_pem = "/etc/noobzvpns/cert.pem"
 
 [client]
+# enforce client using ip version supported by this server.
+# AUTO: auto check for this server support.
+# IPv4: enforce to use IPv4 only.
+# IPv6: enforce to use IPv6 only.
+# NOTE :
+#   - if this server support BOTH ip version you can use AUTO,
+#   - if you have trouble IPv6 on this server (no have internet connectivity)
+#     you can enforce to use IPv4 only, vice-versa
+ip_version = "AUTO"
 # give timeout for first tcp packet parser
 # default 30 seconds
 # format = seconds, min: 5 seconds
