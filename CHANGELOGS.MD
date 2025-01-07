@@ -1,6 +1,16 @@
 # CHANGELOGS
 This page is changelogs info. remember all major protocol version is not compatible for each other (ex: x.x.1a vs x.x.1b are not compatible each other).
 
+### Version 3.2.1b
+* Minor release
+* New Features:
+    * Add Up & Down bytes usage in statistic
+    * new enforce ip_version in config
+* Changed:
+    * move to ``reset`` command to action ``renew`` for issued date (expired day) only.
+    * database version changed, you need migrate all old database yourself.
+
+
 ### Version 3.1.1b
 * Migrate from C/C++ codebase to Rust for memory safety and fast development cycles.
 * New Protocols 1b implementation, replace the old protocol 1a (version: x.x.1a).
