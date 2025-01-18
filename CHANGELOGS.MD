@@ -5,7 +5,20 @@ This page is changelogs info. remember all major protocol version is not compati
 * Fixed:
     * typo in command-line message.
 * Changed:
-    * move issued date from UTC time to Local time, its required to migrate user database or your user for expired specified will wrong expired time.
+    * **config.toml** now support specific localhost address ipv4/ipv6 or both.
+        ```bash
+        # from
+        [tcp_plain]
+        listen_ports = [80]
+        [tcp_ssl]
+        listen_ports = [443]
+        # into
+        [tcp_plain]
+        local_host = ["80"]
+        [tcp_ssl]
+        local_host = ["443"]
+        ```
+    * account issued date from UTC time to Local time, its required to migrate user database or your user for expired specified will wrong expired time.
 
 
 ### Version 3.2.1b
