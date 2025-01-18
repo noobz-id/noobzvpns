@@ -1,6 +1,13 @@
 # CHANGELOGS
 This page is changelogs info. remember all major protocol version is not compatible for each other (ex: x.x.1a vs x.x.1b are not compatible each other).
 
+### Version 3.3.1b
+* Fixed:
+    * typo in command-line message.
+* Changed:
+    * move issued date from UTC time to Local time, its required to migrate user database or your user for expired specified will wrong expired time.
+
+
 ### Version 3.2.1b
 * Minor release
 * New Features:

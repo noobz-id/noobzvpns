@@ -1,13 +1,15 @@
 # Licences
 
-### NoobzVpn-Server :
+## NoobzVpn-Server :
 * NoobzVpn-Server contains multi-licences:
-	* **noobzvpns** executable is **proprietary** binary owned by **Noobz-ID** except the 3rd libraries (3rd licences on bottom) used in **noobzvpns** 
+	* **noobzvpns** executable is **proprietary** binary owned by **Noobz-ID** except the 3rd libraries (3rd licences on bottom) used in **noobzvpns**
 	* **others** components is GPLv2 licences like: installer scripts, etc.
-* **Noobz-ID** (the owner of **NoobzVpn-Server** and **NoobzVpn-Client**) does not  allow  any modifications to the **proprietary** file/software. you can pull request to add new features or report weird bugs.
-* **Noobz-ID** not guaranteed any effect/action for using this software. believe me, this is just tunneling packet no malware, minning or collect/send data to third party, etc, unless you use pirated/hijack version of this software (still not believe? don't use it). **DWYOR !!!**
+* **Noobz-ID** (the owner of **NoobzVpn-Server** and **NoobzVpn-Client**) does not allow any modifications to the **proprietary** file/software. you can pull request to add new features or report weird bugs.
+* **Noobz-ID** not guaranteed any effect/action for using this software.
+* The noobzvpns account are store in local database file ***/etc/noobzvpns/db_user.json***, we dont know anything about the database file inside your server (we wont be evil).
+* If you using 3rd Server Provider, any problem report to their contact. we are not responsible about that. we just developing this software only.
 
-### Third Party :
+## Third Party :
 Since **NoobzVpn-Server** migrated from C++/C to Rust, core-libraries contains 3rd-libraries from official Rust repository [https://crates.io](https://crates.io)
 
 
@@ -30,7 +32,3 @@ Since **NoobzVpn-Server** migrated from C++/C to Rust, core-libraries contains 3
 - [resolv-conf](https://crates.io/crates/resolv-conf) : The resolv.conf file parser
 - [log](https://crates.io/crates/log) : A lightweight logging facade for Rust.
 - [simplelog](https://crates.io/crates/simplelog) : A simple and easy-to-use logging facility for Rust's log crate
-
-
-
-
