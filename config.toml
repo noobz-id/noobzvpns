@@ -16,7 +16,7 @@ local_host = ["80"]
 # # example :
 # 1. any address(port 443): ipv4/ipv6 ["443"]
 # 2. localhost address (ipv4, ipv6 port 443): ["127.0.0.1:443", "[::1]:443"]
-#v = ["443"] for disable
+#local_host = ["443"] for disable
 local_host = ["443"]
 # Select TLS Version.
 # AUTO: is recommended, it will follow the client.
