@@ -2,16 +2,22 @@
 # (c) Noobz-ID Software
 
 [tcp_plain]
-# format is array of ports, and port range is 1-65535.
+# format is array string of port or address:port
 # the ports must be different number from it array also in [tcp_ssl]
-#listen_ports = [80] for disable
-listen_ports = [80]
+# example :
+# 1. any address(port 80): ["80"]
+# 2. localhost address (ipv4, ipv6 port 80): ["127.0.0.1:80", "[::1]:80"]
+#local_host = ["80"] for disable
+local_host = ["80"]
 
 [tcp_ssl]
-# format is array of ports, and port range is 1-65535.
+# format is array string of port or address:port
 # the ports must be different number from it array also in [tcp_plain]
-#listen_ports = [443] for disable
-listen_ports = [443]
+# # example :
+# 1. any address(port 443): ipv4/ipv6 ["443"]
+# 2. localhost address (ipv4, ipv6 port 443): ["127.0.0.1:443", "[::1]:443"]
+#local_host = ["443"] for disable
+local_host = ["443"]
 # Select TLS Version.
 # AUTO: is recommended, it will follow the client.
 # TLSv1_2: TLS version 1.2

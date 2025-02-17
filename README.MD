@@ -8,8 +8,8 @@ Independent flexible tunneling protocol with secure & customized transport.
 Like others VPN apps, it just tunneling network for All IPv4/IPv6 TCP, All IPv4/IPv6 UDP (include DNS) connection with secure (encrypted) & customizable transport.
 
 ### Transport :
-* **Tcp Concurrent** : Bypass all network with single secure tcp tunnel. like: ssh tunnel, openvpn, etc.
-* **Tcp Multiplex** : Bypass all network with independent secure tcp tunnel. like: shadowsocks, trojan, etc.
+* **Tcp Concurrent** : Bypass all network with single secure tcp tunnel.
+* **Tcp Multiplex** : Bypass all network with independent secure tcp tunnel.
 
 
 # Android Client
@@ -40,7 +40,7 @@ git clone https://github.com/noobz-id/noobzvpns.git && noobzvpns/uninstall.sh
 ```
 
 
-### Manage Service:
+# Manage Service
 
 ##### Start Service
 * start service, you need to start it after installation to run noobzvpns service to serve the tunnel or to manage users database.
@@ -84,9 +84,12 @@ journalctl -u noobzvpns.service
 ```
 
 
-### Configuration :
-To changed configuration can be done by using text editor like (vim, nano, etc). also we add documentation each settings in there.
+# Configuration
+* To changed configuration can be done by using text editor like (vim, nano, etc).
+* Don't worry, we add documentation on each settings in configuration file.
+* **Remember** : after you change some configuration you must restart the service.
 ```
+# Here the config file location
 /etc/noobzvpns/config.toml
 ```
 
@@ -121,7 +124,8 @@ openssl req -new -newkey rsa:2048 -sha256 -days 360 -nodes -x509 -keyout key.pem
 ```
 Or, you can change it using your own signed certificate or free signed certificate from [Let's Encrypt](https://letsencrypt.org/) using [certbot](https://certbot.eff.org/) or [acme.sh](https://github.com/acmesh-official/acme.sh). then you can set the cert (certificate) and key (private-key) path in noobzvpns config.
 
-### Commandline
-For manage user accounts you can use the command line by execute ``noobzvpns`` in your ssh or terminal (shell) it will guide you how to do it.
+# Commandline
+You can read the example and documentation in here: [COMMANDLINE.MD](COMMANDLINE.MD)
 
-
+# Changelogs
+If you have been used this program before and then you want to upgrade it, please see: [CHANGELOGS.MD](CHANGELOGS.MD) before you upgrade it.

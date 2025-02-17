@@ -1,6 +1,28 @@
 # CHANGELOGS
 This page is changelogs info. remember all major protocol version is not compatible for each other (ex: x.x.1a vs x.x.1b are not compatible each other).
 
+### Version 3.3.1b
+* Fixed:
+    * typo in command-line message.
+    * fix initial timeout when try parsing request from client.
+    * initial vec data now use raw_vec, make it robust and reduce memory allocation time.
+* Changed:
+    * **config.toml** now support specific localhost address ipv4/ipv6 or both.
+        ```bash
+        # from u16 array
+        [tcp_plain]
+        listen_ports = [80]
+        [tcp_ssl]
+        listen_ports = [443]
+        # into string array (see config.toml for explain more)
+        [tcp_plain]
+        local_host = ["80"]
+        [tcp_ssl]
+        local_host = ["443"]
+        ```
+    * user database version are changed (to: 331) because we change account issued date from UTC time to Local time, its required to migrate user databaseyour self. sorry for doing this.
+
+
 ### Version 3.2.1b
 * Minor release
 * New Features:
