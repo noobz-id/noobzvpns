@@ -1,14 +1,23 @@
 #!/bin/sh
 
-echo ""
-echo "#########################################################"
-echo "## -> NoobzVpn-Server by Noobz-ID Software             ##"
-echo "## -> Author : Muhammad Nurkholis                      ##"
-echo "## -> Email : cholieztzuliz@gmail.com                  ##"
-echo "## -> Github : https://github.com/noobz-id             ##"
-echo "## -> (c) 2017-2025, Noobz-ID Software                 ##"
-echo "#########################################################"
-echo ""
+#!/bin/sh
+
+cat << EOF
+ _   _             _             ___________
+| \\ | |           | |           |_   _|  _  \\
+|  \\| | ___   ___ | |__ __________| | | | | |
+| . \` |/ _ \\ / _ \\| '_ \\_  /______| | | | | |
+| |\\  | (_) | (_) | |_) / /      _| |_| |/ /
+\\_| \\_/\\___/ \\___/|_.__/___|     \\___/|___/
+
+----------------------------------------------
+- NoobzVPN-Server
+- E-Mail: cholieztzuliz@gmail.com
+- Github: Github: https://github.com/noobz-id
+- Copyright (c) Noobz-ID Software
+----------------------------------------------
+
+EOF
 
 BIN=/usr/bin
 CONFIGS=/etc/noobzvpns
